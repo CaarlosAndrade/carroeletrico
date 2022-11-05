@@ -1,4 +1,5 @@
 import 'package:carroeletrico/api/eletroposto_api.dart';
+import 'package:carroeletrico/components/mapa_eletroposto.dart';
 import 'package:carroeletrico/model/eletropost_model.dart';
 import 'package:flutter/material.dart';
 
@@ -39,9 +40,15 @@ class _ListaEletropostoPageState extends State<ListaEletropostoPage> {
                   var eletroposto = eletropostos[index];
                   return ListTile(
                     title: Text(eletroposto.nome),
-                    trailing: const Text(
-                      "Abrir Mapa",
-                      style: TextStyle(color: Colors.blueAccent),
+                    trailing: ElevatedButton(
+                      onPressed: () => {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => MapaEletroposto()),
+                        )
+                      },
+                      child: Text("Abrir Mapa"),
                     ),
                   );
                 }),

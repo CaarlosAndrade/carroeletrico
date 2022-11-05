@@ -34,7 +34,6 @@ class _HomePageState extends State<HomePage> {
           CadastroCarroPage(),
           ListaCarroPage(),
           ListaEletropostoPage(),
-          SimpleMap()
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -47,8 +46,6 @@ class _HomePageState extends State<HomePage> {
               icon: Icon(Icons.electric_car_outlined), label: 'Cadastro'),
           BottomNavigationBarItem(
               icon: Icon(Icons.electric_car_outlined), label: 'Meus Carros'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.electric_car_outlined), label: 'Eletroposto'),
           BottomNavigationBarItem(
               icon: Icon(Icons.electric_car_outlined), label: 'Eletroposto'),
         ],
