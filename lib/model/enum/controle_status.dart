@@ -1,0 +1,1 @@
+enum ControleStatus { Ligado, Desligado }
