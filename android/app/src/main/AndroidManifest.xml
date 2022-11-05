@@ -1,5 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.carroeletrico">
+
+<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+
    <application
         android:label="carroeletrico"
         android:name="${applicationName}"
@@ -30,5 +35,7 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+            <meta-data android:name="com.google.android.geo.API_KEY"
+               android:value="AIzaSyDHX9r2ep3u6S0cGI8oNc7rM4lmt0SkVjw"/>
     </application>
 </manifest>

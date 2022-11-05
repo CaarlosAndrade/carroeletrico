@@ -1,5 +1,7 @@
 import 'package:carroeletrico/components/cadastro_carro_page.dart';
 import 'package:carroeletrico/components/lista_carro_page.dart';
+import 'package:carroeletrico/components/lista_eletroposto.dart';
+import 'package:carroeletrico/components/mapa_eletroposto.dart';
 import 'package:carroeletrico/components/sobre_page.dart';
 import 'package:flutter/material.dart';
 
@@ -30,7 +32,9 @@ class _HomePageState extends State<HomePage> {
         children: [
           SobrePage(),
           CadastroCarroPage(),
-          ListaCarroPage()
+          ListaCarroPage(),
+          ListaEletropostoPage(),
+          SimpleMap()
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -43,6 +47,10 @@ class _HomePageState extends State<HomePage> {
               icon: Icon(Icons.electric_car_outlined), label: 'Cadastro'),
           BottomNavigationBarItem(
               icon: Icon(Icons.electric_car_outlined), label: 'Meus Carros'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.electric_car_outlined), label: 'Eletroposto'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.electric_car_outlined), label: 'Eletroposto'),
         ],
         onTap: (pagina) {
           controller.animateToPage(
