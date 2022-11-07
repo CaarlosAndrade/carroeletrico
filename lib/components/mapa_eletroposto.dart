@@ -1,15 +1,23 @@
+import 'package:carroeletrico/model/eletropost_model.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class MapaEletroposto extends StatefulWidget {
   @override
   _MapaEletropostoState createState() => _MapaEletropostoState();
+
+  final Eletroposto eletroposto;
+  const MapaEletroposto({required this.eletroposto});
 }
 
 class _MapaEletropostoState extends State<MapaEletroposto> {
   late GoogleMapController mapController;
   final Set<Marker> markers = new Set();
-  static const LatLng showLocation = const LatLng(27.7089427, 85.3086209);
+
+  // Marcador, target/marker
+  static const LatLng MarkerEletroposto =
+      const LatLng(-23.54635103931, -46.638679418682806);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,8 +27,8 @@ class _MapaEletropostoState extends State<MapaEletroposto> {
       body: GoogleMap(
         zoomGesturesEnabled: true,
         initialCameraPosition: CameraPosition(
-          target: showLocation,
-          zoom: 15.0,
+          target: MarkerEletroposto,
+          zoom: 18.0,
         ),
         markers: getmarkers(),
         mapType: MapType.normal,
@@ -34,46 +42,19 @@ class _MapaEletropostoState extends State<MapaEletroposto> {
   }
 
   Set<Marker> getmarkers() {
-    //markers to place on map
     setState(() {
       markers.add(Marker(
-        //add first marker
-        markerId: MarkerId(showLocation.toString()),
-        position: showLocation, //position of marker
+        markerId: MarkerId(widget.eletroposto.id.toString()),
+        position: MarkerEletroposto,
         infoWindow: InfoWindow(
-          //popup info
-          title: 'Marker Title First ',
-          snippet: 'My Custom Subtitle',
+          title: widget.eletroposto.nome,
+          snippet: widget.eletroposto.telefone != ""
+              ? "Telefone: " + widget.eletroposto.telefone
+              : "sem telefone",
         ),
         icon: BitmapDescriptor.defaultMarker, //Icon for Marker
       ));
-
-      markers.add(Marker(
-        //add second marker
-        markerId: MarkerId(showLocation.toString()),
-        position: LatLng(27.7099116, 85.3132343), //position of marker
-        infoWindow: InfoWindow(
-          //popup info
-          title: 'Marker Title Second ',
-          snippet: 'My Custom Subtitle',
-        ),
-        icon: BitmapDescriptor.defaultMarker,
-      ));
-
-      markers.add(Marker(
-        //add third marker
-        markerId: MarkerId(showLocation.toString()),
-        position: LatLng(27.7137735, 85.315626),
-
-        infoWindow: InfoWindow(
-          //popup info
-          title: 'Marker Title Third ',
-          snippet: 'My Custom Subtitle',
-        ),
-        icon: BitmapDescriptor.defaultMarker,
-      ));
     });
-
     return markers;
   }
 }
