@@ -12,7 +12,6 @@ class CadastroCarroPage extends StatefulWidget {
 }
 
 class _CadastroCarroPageState extends State<CadastroCarroPage> {
-
   final _nomeController = TextEditingController();
   final _chassiController = TextEditingController();
   final _quilometragemController = TextEditingController();
@@ -53,16 +52,15 @@ class _CadastroCarroPageState extends State<CadastroCarroPage> {
       ),
     );
   }
-  
+
   TextFormField _buildApelido() {
     return TextFormField(
       controller: _nomeController,
       decoration: const InputDecoration(
-        hintText: 'Informe um apelido',
-        labelText: 'Apelido:',
-        prefixIcon: Icon(Icons.time_to_leave),
-        border: OutlineInputBorder()        
-      ),
+          hintText: 'Informe um apelido',
+          labelText: 'Apelido:',
+          prefixIcon: Icon(Icons.time_to_leave),
+          border: OutlineInputBorder()),
       validator: (value) {
         if (value == null || value.isEmpty) {
           return 'Informe um apelido para o carro';
@@ -79,13 +77,12 @@ class _CadastroCarroPageState extends State<CadastroCarroPage> {
     return TextFormField(
       controller: _chassiController,
       decoration: const InputDecoration(
-        hintText: 'Informe o número do chassi',
-        labelText: 'Chassi:',
-        prefixIcon: Icon(Icons.time_to_leave),
-        border: OutlineInputBorder()        
-      ),
+          hintText: 'Informe o número do chassi',
+          labelText: 'Chassi:',
+          prefixIcon: Icon(Icons.time_to_leave),
+          border: OutlineInputBorder()),
       validator: (value) {
-        if (value == null || value.length != 17) {
+        if (value == null || value.length != 1) {
           return 'O chassi deve conter 17 caracteres';
         }
         return null;
@@ -93,16 +90,15 @@ class _CadastroCarroPageState extends State<CadastroCarroPage> {
     );
   }
 
-   TextFormField _buildQuilometragem() {
+  TextFormField _buildQuilometragem() {
     return TextFormField(
       controller: _quilometragemController,
       inputFormatters: [FilteringTextInputFormatter.digitsOnly],
       decoration: const InputDecoration(
-        hintText: 'Informe a quilometragem',
-        labelText: 'Quilometragem:',
-        prefixIcon: Icon(Icons.time_to_leave),
-        border: OutlineInputBorder()        
-      ),
+          hintText: 'Informe a quilometragem',
+          labelText: 'Quilometragem:',
+          prefixIcon: Icon(Icons.time_to_leave),
+          border: OutlineInputBorder()),
       validator: (value) {
         if (int.parse(value!) < 0) {
           return ''; //TODO
@@ -127,12 +123,15 @@ class _CadastroCarroPageState extends State<CadastroCarroPage> {
             final quilometragem = _quilometragemController.text;
             final chassi = int.parse(_chassiController.text);
 
-            final carroCadastro = Carro(apelido: apelido, chassi: chassi, quilometragem: double.parse(quilometragem));
+            final carroCadastro = Carro(
+                apelido: apelido,
+                chassi: chassi,
+                quilometragem: double.parse(quilometragem));
 
             try {
               if (widget.carroParaEdicao != null) {
                 //await _carroRepository.cadastrarCarro(carroCadastro);
-              }else {
+              } else {
                 await _carroRepository.cadastrarCarro(carroCadastro);
               }
 
@@ -147,6 +146,4 @@ class _CadastroCarroPageState extends State<CadastroCarroPage> {
       ),
     );
   }
-
 }
-
