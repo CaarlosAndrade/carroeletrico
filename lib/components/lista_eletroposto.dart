@@ -22,7 +22,7 @@ class _ListaEletropostoPageState extends State<ListaEletropostoPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Lista Eletroposto"),
+        title: const Text("Lista de Eletropostos"),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -38,17 +38,27 @@ class _ListaEletropostoPageState extends State<ListaEletropostoPage> {
                 itemCount: eletropostos.length,
                 itemBuilder: ((context, index) {
                   var eletroposto = eletropostos[index];
-                  return ListTile(
-                    title: Text(eletroposto.nome),
-                    trailing: ElevatedButton(
+                  return Card(
+                    child: ElevatedButton(
                       onPressed: () => {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => MapaEletroposto()),
+                              builder: (context) =>
+                                  MapaEletroposto(eletroposto: eletroposto)),
                         )
                       },
-                      child: Text("Abrir Mapa"),
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.white,
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 16, vertical: 15),
+                          textStyle: TextStyle(
+                              fontSize: 30, fontWeight: FontWeight.bold)),
+                      child: ListTile(
+                        title: Text(eletroposto.nome),
+                        subtitle: Text("Clique para visualizar no mapa"),
+                        trailing: Icon(Icons.ev_station_sharp),
+                      ),
                     ),
                   );
                 }),
