@@ -139,8 +139,6 @@ class _CadastroCarroPageState extends State<CadastroCarroPage> {
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                 content: Text('$apelido cadastrado com sucesso'),
               ));
-
-              Navigator.of(context).pop(true);
             } catch (e) {
               Navigator.of(context).pop(false);
             }

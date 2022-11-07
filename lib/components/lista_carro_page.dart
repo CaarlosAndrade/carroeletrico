@@ -58,7 +58,8 @@ class _ListaCarroPage extends State<ListaCarroPage> {
                   key: ValueKey<Carro>(carro),
                   child: ListTile(
                     title: Text(carro.apelido),
-                    subtitle: Text('Status: $controleStatus'),
+                    subtitle: Text('Chave Eletrônica Virtual: $controleStatus'),
+                    onTap: (() => Navigator.pushNamed(context, '/carro-detalhe', arguments: carro)),
                   ),
                   onDismissed: (DismissDirection direction) async {
                     await _carroRepository.deletarCarro(carro.chassi!);

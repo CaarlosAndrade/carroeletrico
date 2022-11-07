@@ -1,7 +1,6 @@
 import 'package:carroeletrico/components/cadastro_carro_page.dart';
 import 'package:carroeletrico/components/lista_carro_page.dart';
 import 'package:carroeletrico/components/lista_eletroposto.dart';
-import 'package:carroeletrico/components/mapa_eletroposto.dart';
 import 'package:carroeletrico/components/sobre_page.dart';
 import 'package:flutter/material.dart';
 

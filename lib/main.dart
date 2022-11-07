@@ -1,3 +1,4 @@
+import 'package:carroeletrico/components/detalhe_carro_page.dart';
 import 'package:carroeletrico/components/home_page.dart';
 import 'package:flutter/material.dart';
 
@@ -18,7 +19,8 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       routes: {
-        '/': (context) => const HomePage()
+        '/': (context) => const HomePage(),
+        '/detalhe-carro': (context) => const DetalheCarroPage()
       },
       initialRoute: '/',
     );
