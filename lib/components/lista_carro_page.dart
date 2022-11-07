@@ -54,7 +54,12 @@ class _ListaCarroPage extends State<ListaCarroPage> {
                     padding: EdgeInsets.symmetric(horizontal: 10.0),
                     child: Icon(Icons.delete_forever),
                   ),
-                  direction: DismissDirection.endToStart,
+                  secondaryBackground: Container(
+                    color: Colors.blue,
+                    alignment: Alignment.centerRight,
+                    padding: EdgeInsets.symmetric(horizontal: 10.0),
+                    child: Icon(Icons.edit),
+                  ),
                   key: ValueKey<Carro>(carro),
                   child: ListTile(
                     title: Text(carro.apelido),
@@ -62,10 +67,14 @@ class _ListaCarroPage extends State<ListaCarroPage> {
                     onTap: (() => Navigator.pushNamed(context, '/carro-detalhe', arguments: carro)),
                   ),
                   onDismissed: (DismissDirection direction) async {
-                    await _carroRepository.deletarCarro(carro.chassi!);
-                    setState(() {
-                      carros.removeAt(index);
-                    });
+                    if(direction == DismissDirection.endToStart){
+                      await _carroRepository.deletarCarro(carro.chassi!);
+                      setState(() {
+                        carros.removeAt(index);
+                      });
+                    }else {
+                      Navigator.pushNamed(context, '/carro-detalhe', arguments: carro);
+                    }
                   },
                 );
               },
