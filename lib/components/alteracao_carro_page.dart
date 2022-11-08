@@ -1,20 +1,25 @@
 import 'package:carroeletrico/model/carro_model.dart';
+import 'package:carroeletrico/model/enum/controle_status.dart';
+import 'package:carroeletrico/model/enum/controle_trava.dart';
 import 'package:carroeletrico/repository/carro_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class CadastroCarroPage extends StatefulWidget {
+class AlteracaoCarroPage extends StatefulWidget {
   Carro? carroParaEdicao;
-  CadastroCarroPage({Key? key, this.carroParaEdicao}) : super(key: key);
+  AlteracaoCarroPage({Key? key, this.carroParaEdicao}) : super(key: key);
 
   @override
-  State<CadastroCarroPage> createState() => _CadastroCarroPageState();
+  State<AlteracaoCarroPage> createState() => _AlteracaoCarroPageState();
 }
 
-class _CadastroCarroPageState extends State<CadastroCarroPage> {
+class _AlteracaoCarroPageState extends State<AlteracaoCarroPage> {
   final _nomeController = TextEditingController();
   final _chassiController = TextEditingController();
   final _quilometragemController = TextEditingController();
+
+  ControleStatus controleStatusChaveEletronica = ControleStatus.Desligado;
+  ControleTrava controleTrava = ControleTrava.Destravado;
 
   final _carroRepository = CarroRepository();
 
@@ -28,6 +33,8 @@ class _CadastroCarroPageState extends State<CadastroCarroPage> {
       _nomeController.text = carro.apelido;
       _chassiController.text = carro.chassi.toString();
       _quilometragemController.text = carro.quilometragem.toString();
+      controleStatusChaveEletronica = carro.controleStatus;
+      controleTrava = carro.controleTrava;
     }
   }
 
@@ -37,7 +44,7 @@ class _CadastroCarroPageState extends State<CadastroCarroPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Novo Carro'),
+        title: const Text('Alteração Carro'),
       ),
       body: SingleChildScrollView(
         child: Form(
@@ -51,6 +58,10 @@ class _CadastroCarroPageState extends State<CadastroCarroPage> {
                 _buildChassi(),
                 const SizedBox(height: 25),
                 _buildQuilometragem(),
+                const SizedBox(height: 25),
+                _buildChaveEletronica(),
+                const SizedBox(height: 25),
+                _buildTravaDestrava(),
                 const SizedBox(height: 25),
                 _buildBotao()
               ],
@@ -122,7 +133,7 @@ class _CadastroCarroPageState extends State<CadastroCarroPage> {
       child: ElevatedButton(
         child: const Padding(
           padding: EdgeInsets.all(10.0),
-          child: Text('Cadastrar Carro'),
+          child: Text('Aplicar Alteração Carro'),
         ),
         onPressed: () async {
           final isValid = _formKey.currentState!.validate();
@@ -134,17 +145,16 @@ class _CadastroCarroPageState extends State<CadastroCarroPage> {
             final carro = Carro(
                 apelido: apelido,
                 chassi: chassi,
-                quilometragem: double.parse(quilometragem));
+                quilometragem: double.parse(quilometragem),
+                controleStatus: controleStatusChaveEletronica,
+                controleTrava: controleTrava
+            );
 
             try {
-              if (widget.carroParaEdicao != null) {
-                await _carroRepository.atualizarCarro(carro);
-              } else {
-                await _carroRepository.cadastrarCarro(carro);
-              }
+              await _carroRepository.atualizarCarro(carro);
 
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                content: Text('$apelido cadastrado com sucesso'),
+                content: Text('$apelido alterado com sucesso'),
               ));
             } catch (e) {
               Navigator.of(context).pop(false);
@@ -152,6 +162,68 @@ class _CadastroCarroPageState extends State<CadastroCarroPage> {
           }
         },
       ),
+    );
+  }
+  
+  Widget _buildChaveEletronica() {
+    return Column(
+      children: <Widget>[
+        RadioListTile<ControleStatus>(
+          title: const Text('Carro Desligado'),
+          value: ControleStatus.Desligado,
+          groupValue: controleStatusChaveEletronica,
+          onChanged: (ControleStatus? value) {
+            if (value != null) {
+              setState(() {
+                controleStatusChaveEletronica = value;
+              });
+            }
+          },
+        ),
+        RadioListTile<ControleStatus>(
+          title: const Text('Carro Ligado'),
+          value: ControleStatus.Ligado,
+          groupValue: controleStatusChaveEletronica,
+          onChanged: (ControleStatus? value) {
+            if (value != null) {
+              setState(() {
+                controleStatusChaveEletronica = value;
+              });
+            }
+          },
+        ),
+      ],
+    );
+  }
+  
+  Widget _buildTravaDestrava() {
+    return Column(
+      children: <Widget>[
+        RadioListTile<ControleTrava>(
+          title: const Text('Carro Travado'),
+          value: ControleTrava.Travado,
+          groupValue: controleTrava,
+          onChanged: (ControleTrava? value) {
+            if (value != null) {
+              setState(() {
+                controleTrava = value;
+              });
+            }
+          },
+        ),
+        RadioListTile<ControleTrava>(
+          title: const Text('Carro Destravado'),
+          value: ControleTrava.Destravado,
+          groupValue: controleTrava,
+          onChanged: (ControleTrava? value) {
+            if (value != null) {
+              setState(() {
+                controleTrava = value;
+              });
+            }
+          },
+        ),
+      ],
     );
   }
 }

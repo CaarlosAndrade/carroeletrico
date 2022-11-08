@@ -73,7 +73,7 @@ class _ListaCarroPage extends State<ListaCarroPage> {
                         carros.removeAt(index);
                       });
                     }else {
-                      Navigator.pushNamed(context, '/carro-detalhe', arguments: carro);
+                      Navigator.pushNamed(context, '/carro-alteracao', arguments: carro);
                     }
                   },
                 );

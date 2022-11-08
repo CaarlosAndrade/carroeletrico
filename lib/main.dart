@@ -1,3 +1,5 @@
+import 'package:carroeletrico/components/alteracao_carro_page.dart';
+import 'package:carroeletrico/components/cadastro_carro_page.dart';
 import 'package:carroeletrico/components/detalhe_carro_page.dart';
 import 'package:carroeletrico/components/home_page.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +22,8 @@ class MyApp extends StatelessWidget {
       ),
       routes: {
         '/': (context) => const HomePage(),
-        '/carro-detalhe': (context) => const DetalheCarroPage()
+        '/carro-detalhe': (context) => const DetalheCarroPage(),
+        '/carro-alteracao':(context) => AlteracaoCarroPage()
       },
       initialRoute: '/',
     );
