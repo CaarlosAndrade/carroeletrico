@@ -1,3 +1,4 @@
+import 'package:carroeletrico/components/lista_carro_page.dart';
 import 'package:carroeletrico/model/carro_model.dart';
 import 'package:carroeletrico/model/enum/controle_status.dart';
 import 'package:carroeletrico/model/enum/controle_trava.dart';
@@ -29,13 +30,11 @@ class _AlteracaoCarroPageState extends State<AlteracaoCarroPage> {
 
     final carro = widget.carroParaEdicao;
 
-    if(carro != null){
-      _nomeController.text = carro.apelido;
-      _chassiController.text = carro.chassi.toString();
-      _quilometragemController.text = carro.quilometragem.toString();
-      controleStatusChaveEletronica = carro.controleStatus;
-      controleTrava = carro.controleTrava;
-    }
+    _nomeController.text = carro!.apelido;
+    _chassiController.text = carro.chassi.toString();
+    _quilometragemController.text = carro.quilometragem.toString();
+    controleStatusChaveEletronica = carro.controleStatus;
+    controleTrava = carro.controleTrava;
   }
 
   final _formKey = GlobalKey<FormState>();
@@ -54,8 +53,6 @@ class _AlteracaoCarroPageState extends State<AlteracaoCarroPage> {
             child: Column(
               children: [
                 _buildApelido(),
-                const SizedBox(height: 25),
-                _buildChassi(),
                 const SizedBox(height: 25),
                 _buildQuilometragem(),
                 const SizedBox(height: 25),
@@ -92,23 +89,6 @@ class _AlteracaoCarroPageState extends State<AlteracaoCarroPage> {
     );
   }
 
-  TextFormField _buildChassi() {
-    return TextFormField(
-      controller: _chassiController,
-      decoration: const InputDecoration(
-          hintText: 'Informe o número do chassi',
-          labelText: 'Chassi:',
-          prefixIcon: Icon(Icons.time_to_leave),
-          border: OutlineInputBorder()),
-      validator: (value) {
-        if (value == null || value.length != 1) {
-          return 'O chassi deve conter 17 caracteres';
-        }
-        return null;
-      },
-    );
-  }
-
   TextFormField _buildQuilometragem() {
     return TextFormField(
       controller: _quilometragemController,
@@ -118,12 +98,6 @@ class _AlteracaoCarroPageState extends State<AlteracaoCarroPage> {
           labelText: 'Quilometragem:',
           prefixIcon: Icon(Icons.time_to_leave),
           border: OutlineInputBorder()),
-      validator: (value) {
-        if (int.parse(value!) < 0) {
-          return ''; //TODO
-        }
-        return null;
-      },
     );
   }
 
@@ -145,10 +119,9 @@ class _AlteracaoCarroPageState extends State<AlteracaoCarroPage> {
             final carro = Carro(
                 apelido: apelido,
                 chassi: chassi,
-                quilometragem: double.parse(quilometragem),
+                quilometragem: int.parse(quilometragem),
                 controleStatus: controleStatusChaveEletronica,
-                controleTrava: controleTrava
-            );
+                controleTrava: controleTrava);
 
             try {
               await _carroRepository.atualizarCarro(carro);
@@ -156,6 +129,8 @@ class _AlteracaoCarroPageState extends State<AlteracaoCarroPage> {
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                 content: Text('$apelido alterado com sucesso'),
               ));
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (BuildContext context) => ListaCarroPage()));
             } catch (e) {
               Navigator.of(context).pop(false);
             }
@@ -164,7 +139,7 @@ class _AlteracaoCarroPageState extends State<AlteracaoCarroPage> {
       ),
     );
   }
-  
+
   Widget _buildChaveEletronica() {
     return Column(
       children: <Widget>[
@@ -195,7 +170,7 @@ class _AlteracaoCarroPageState extends State<AlteracaoCarroPage> {
       ],
     );
   }
-  
+
   Widget _buildTravaDestrava() {
     return Column(
       children: <Widget>[

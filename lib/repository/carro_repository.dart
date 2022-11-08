@@ -12,8 +12,8 @@ class CarroRepository {
       "chassi": carro.chassi,
       "controleStatus": carro.controleStatus.index,
       "controleTrava": carro.controleTrava.index,
-      "quilometragem": 12.000,
-      "porcentagemCarga": 100
+      "quilometragem": carro.quilometragem,
+      "porcentagemCarga": carro.porcentagemCarga,
     });
   }
 
@@ -45,16 +45,14 @@ class CarroRepository {
   Future<int> atualizarCarro(Carro carro) async {
     final db = await DatabaseManager().getDatabase();
     return db.update(
-      "carros", 
-      {
-        "apelido": carro.apelido,
-        "controleStatus": carro.controleStatus.index,
-        "controleTrava": carro.controleTrava.index,
-        "quilometragem": carro.quilometragem,
-        "porcentagemCarga": carro.porcentagemCarga
-      },
-      where: 'chassi = ?',
-      whereArgs: [carro.chassi]
-    );
+        "carros",
+        {
+          "apelido": carro.apelido,
+          "controleStatus": carro.controleStatus.index,
+          "controleTrava": carro.controleTrava.index,
+          "quilometragem": carro.quilometragem,
+        },
+        where: 'chassi = ?',
+        whereArgs: [carro.chassi]);
   }
 }

@@ -24,7 +24,7 @@ class _CadastroCarroPageState extends State<CadastroCarroPage> {
 
     final carro = widget.carroParaEdicao;
 
-    if(carro != null){
+    if (carro != null) {
       _nomeController.text = carro.apelido;
       _chassiController.text = carro.chassi.toString();
       _quilometragemController.text = carro.quilometragem.toString();
@@ -107,12 +107,6 @@ class _CadastroCarroPageState extends State<CadastroCarroPage> {
           labelText: 'Quilometragem:',
           prefixIcon: Icon(Icons.time_to_leave),
           border: OutlineInputBorder()),
-      validator: (value) {
-        if (int.parse(value!) < 0) {
-          return ''; //TODO
-        }
-        return null;
-      },
     );
   }
 
@@ -134,7 +128,8 @@ class _CadastroCarroPageState extends State<CadastroCarroPage> {
             final carro = Carro(
                 apelido: apelido,
                 chassi: chassi,
-                quilometragem: double.parse(quilometragem));
+                quilometragem: int.parse(quilometragem),
+                porcentagemCarga: 100);
 
             try {
               if (widget.carroParaEdicao != null) {

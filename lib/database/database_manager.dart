@@ -3,7 +3,7 @@ import 'package:path/path.dart';
 
 class DatabaseManager {
   Future<Database> getDatabase() async {
-    final path = join(await getDatabasesPath(), 'carros1.db');
+    final path = join(await getDatabasesPath(), 'carro.db');
     return openDatabase(path, version: 1, onCreate: _onCreate);
   }
 
@@ -15,7 +15,7 @@ class DatabaseManager {
     CREATE TABLE IF NOT EXISTS carros (
       chassi INTEGER PRIMARY KEY,
       porcentagemCarga INTEGER,
-      quilometragem REAL,
+      quilometragem INTEGER,
       controleStatus INTEGER, 
       controleTrava INTEGER,
       apelido TEXT

@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => const HomePage(),
         '/carro-detalhe': (context) => const DetalheCarroPage(),
-        '/carro-alteracao':(context) => AlteracaoCarroPage()
+        '/carro-alteracao': (context) => AlteracaoCarroPage()
       },
       initialRoute: '/',
     );
