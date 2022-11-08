@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:carroeletrico/components/lista_carro_page.dart';
 import 'package:carroeletrico/model/carro_model.dart';
 import 'package:carroeletrico/model/enum/controle_status.dart';
@@ -43,8 +45,8 @@ class _AlteracaoCarroPageState extends State<AlteracaoCarroPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Alteração Carro'),
-      ),
+          title: const Text('Alteração Carro'),
+          automaticallyImplyLeading: false),
       body: SingleChildScrollView(
         child: Form(
           key: _formKey,
@@ -129,8 +131,7 @@ class _AlteracaoCarroPageState extends State<AlteracaoCarroPage> {
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                 content: Text('$apelido alterado com sucesso'),
               ));
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (BuildContext context) => ListaCarroPage()));
+              Navigator.pop(context);
             } catch (e) {
               Navigator.of(context).pop(false);
             }

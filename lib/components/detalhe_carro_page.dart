@@ -12,9 +12,7 @@ class DetalheCarroPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.greenAccent,
-        title: Text(carro.apelido),
-      ),
+          backgroundColor: Colors.greenAccent, title: Text(carro.apelido)),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -31,9 +29,8 @@ class DetalheCarroPage extends StatelessWidget {
                   : 'Destravado'),
             ),
             ListTile(
-              title: const Text('Quilometragem Percorrida'),
-              subtitle: Text("${carro.quilometragem} km")
-            ),
+                title: const Text('Quilometragem Percorrida'),
+                subtitle: Text("${carro.quilometragem} km")),
             ListTile(
               title: const Text('Porcentagem de Carga'),
               subtitle: Text("${carro.porcentagemCarga}%"),

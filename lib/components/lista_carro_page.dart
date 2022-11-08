@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:carroeletrico/components/alteracao_carro_page.dart';
 import 'package:carroeletrico/components/cadastro_carro_page.dart';
 import 'package:carroeletrico/model/carro_model.dart';
@@ -26,10 +28,17 @@ class _ListaCarroPage extends State<ListaCarroPage> {
     _carros = _carroRepository.listarCarro();
   }
 
+  onGoBack(dynamic value) {
+    carregarCarros();
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: const Text('Carros Cadastrados')),
+        appBar: AppBar(
+            title: const Text('Carros Cadastrados'),
+            automaticallyImplyLeading: false),
         body: FutureBuilder<List<Carro>>(
           future: _carros,
           builder: (context, snapshot) {
@@ -79,11 +88,12 @@ class _ListaCarroPage extends State<ListaCarroPage> {
                           carros.removeAt(index);
                         });
                       } else {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (BuildContext context) =>
-                                AlteracaoCarroPage(
+                        //
+                        Route route = MaterialPageRoute(
+                            builder: (context) => AlteracaoCarroPage(
                                   carroParaEdicao: carro,
-                                )));
+                                ));
+                        Navigator.push(context, route).then(onGoBack);
                       }
                     },
                   );
