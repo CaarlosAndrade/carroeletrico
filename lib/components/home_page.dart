@@ -39,14 +39,13 @@ class _HomePageState extends State<HomePage> {
         currentIndex: paginaAtual,
         type: BottomNavigationBarType.fixed,
         items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.business), label: 'Empresa'),
           BottomNavigationBarItem(
-              icon: Icon(Icons.info_outline), label: 'Empresa'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.electric_car_outlined), label: 'Cadastro'),
+              icon: Icon(Icons.add_circle_outline), label: 'Cadastro'),
           BottomNavigationBarItem(
               icon: Icon(Icons.electric_car_outlined), label: 'Garagem'),
           BottomNavigationBarItem(
-              icon: Icon(Icons.electric_car_outlined), label: 'Eletropostos'),
+              icon: Icon(Icons.electric_bolt_sharp), label: 'Eletropostos'),
         ],
         onTap: (pagina) {
           controller.animateToPage(
