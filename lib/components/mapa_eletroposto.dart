@@ -22,7 +22,7 @@ class _MapaEletropostoState extends State<MapaEletroposto> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Localização dos Eletropostos"),
+        title: Text(widget.eletroposto.nome),
       ),
       body: GoogleMap(
         zoomGesturesEnabled: true,
