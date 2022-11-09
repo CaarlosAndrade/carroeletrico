@@ -45,18 +45,31 @@ class _AlteracaoCarroPageState extends State<AlteracaoCarroPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: const Text('Alteração Carro'),
-          automaticallyImplyLeading: false),
+          title: const Text('Atualização'), automaticallyImplyLeading: false),
       body: SingleChildScrollView(
         child: Form(
           key: _formKey,
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(30),
             child: Column(
               children: [
+                const Text(
+                  'Faça a atualização dos dados do seu carro',
+                  style: TextStyle(fontSize: 20),
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(
+                  height: 50,
+                ),
                 _buildApelido(),
                 const SizedBox(height: 25),
                 _buildQuilometragem(),
+                const SizedBox(height: 25),
+                const Text(
+                  'Controle seu carro de forma remota',
+                  style: TextStyle(fontSize: 20),
+                  textAlign: TextAlign.center,
+                ),
                 const SizedBox(height: 25),
                 _buildChaveEletronica(),
                 const SizedBox(height: 25),
@@ -75,13 +88,13 @@ class _AlteracaoCarroPageState extends State<AlteracaoCarroPage> {
     return TextFormField(
       controller: _nomeController,
       decoration: const InputDecoration(
-          hintText: 'Informe um apelido',
+          hintText: 'Informe o apelido do seu carro',
           labelText: 'Apelido:',
           prefixIcon: Icon(Icons.time_to_leave),
           border: OutlineInputBorder()),
       validator: (value) {
         if (value == null || value.isEmpty) {
-          return 'Informe um apelido para o carro';
+          return 'Informe o apelido para identificação';
         }
         if (value.length < 5 || value.length > 30) {
           return 'O apelido deve ter entre 5 e 30 caracteres';
@@ -109,7 +122,7 @@ class _AlteracaoCarroPageState extends State<AlteracaoCarroPage> {
       child: ElevatedButton(
         child: const Padding(
           padding: EdgeInsets.all(10.0),
-          child: Text('Aplicar Alteração Carro'),
+          child: Text('Aplicar atualização'),
         ),
         onPressed: () async {
           final isValid = _formKey.currentState!.validate();
