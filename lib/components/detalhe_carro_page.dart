@@ -11,8 +11,7 @@ class DetalheCarroPage extends StatelessWidget {
     final carro = ModalRoute.of(context)!.settings.arguments as Carro;
 
     return Scaffold(
-      appBar: AppBar(
-          backgroundColor: Colors.greenAccent, title: Text(carro.apelido)),
+      appBar: AppBar(title: Text(carro.apelido)),
       body: SingleChildScrollView(
         child: Column(
           children: [
