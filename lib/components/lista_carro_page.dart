@@ -37,7 +37,7 @@ class _ListaCarroPage extends State<ListaCarroPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-            title: const Text('Carros Cadastrados'),
+            title: const Text('Garagem Virtual'),
             automaticallyImplyLeading: false),
         body: FutureBuilder<List<Carro>>(
           future: _carros,
@@ -60,21 +60,21 @@ class _ListaCarroPage extends State<ListaCarroPage> {
                           : 'Desligado';
 
                   return Dismissible(
-                    background: Container(
+                    secondaryBackground: Container(
                       color: Colors.red,
                       alignment: Alignment.centerRight,
                       padding: EdgeInsets.symmetric(horizontal: 10.0),
                       child: Icon(Icons.delete_forever),
                     ),
-                    secondaryBackground: Container(
-                      color: Colors.blue,
-                      alignment: Alignment.centerRight,
+                    background: Container(
+                      color: Colors.yellow,
+                      alignment: Alignment.centerLeft,
                       padding: EdgeInsets.symmetric(horizontal: 10.0),
                       child: Icon(Icons.edit),
                     ),
                     key: ValueKey<Carro>(carro),
                     child: ListTile(
-                      title: Text(carro.apelido),
+                      title: Text("Veiculo - " + carro.apelido),
                       subtitle:
                           Text('Chave Eletrônica Virtual: $controleStatus'),
                       onTap: (() => Navigator.pushNamed(
@@ -98,7 +98,10 @@ class _ListaCarroPage extends State<ListaCarroPage> {
                     },
                   );
                 },
-                separatorBuilder: (context, index) => const Divider(),
+                separatorBuilder: (context, index) => const Divider(
+                  height: 20,
+                  thickness: 5,
+                ),
               );
             }
             return Container();
