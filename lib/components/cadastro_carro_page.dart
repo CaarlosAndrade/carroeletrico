@@ -37,15 +37,23 @@ class _CadastroCarroPageState extends State<CadastroCarroPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Novo Carro'),
+        title: const Text('Cadrastro'),
       ),
       body: SingleChildScrollView(
         child: Form(
           key: _formKey,
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(30),
             child: Column(
               children: [
+                const Text(
+                  'Registre aqui seus carros em sua garagem virtual',
+                  style: TextStyle(fontSize: 20),
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(
+                  height: 30,
+                ),
                 _buildApelido(),
                 const SizedBox(height: 25),
                 _buildChassi(),
@@ -65,16 +73,15 @@ class _CadastroCarroPageState extends State<CadastroCarroPage> {
     return TextFormField(
       controller: _nomeController,
       decoration: const InputDecoration(
-          hintText: 'Informe um apelido',
-          labelText: 'Apelido:',
-          prefixIcon: Icon(Icons.time_to_leave),
-          border: OutlineInputBorder()),
+        border: UnderlineInputBorder(),
+        labelText: 'Informe o apelido do seu carro',
+      ),
       validator: (value) {
         if (value == null || value.isEmpty) {
-          return 'Informe um apelido para o carro';
+          return 'Informe o apelido para identificar o veiculo na garagem';
         }
-        if (value.length < 5 || value.length > 30) {
-          return 'O apelido deve ter entre 5 e 30 caracteres';
+        if (value.length < 2 || value.length > 30) {
+          return 'O apelido deve ter entre 2 e 30 caracteres';
         }
         return null;
       },
@@ -85,16 +92,18 @@ class _CadastroCarroPageState extends State<CadastroCarroPage> {
     return TextFormField(
       controller: _chassiController,
       decoration: const InputDecoration(
-          hintText: 'Informe o número do chassi',
-          labelText: 'Chassi:',
-          prefixIcon: Icon(Icons.time_to_leave),
-          border: OutlineInputBorder()),
+        border: UnderlineInputBorder(),
+        labelText: 'Informe o numero do chassi do veiculo',
+      ),
       validator: (value) {
-        if (value == null || value.length != 1) {
+        if (value == null || value.length != 17) {
           return 'O chassi deve conter 17 caracteres';
         }
         return null;
       },
+      inputFormatters: [
+        new LengthLimitingTextInputFormatter(17),
+      ],
     );
   }
 
@@ -103,20 +112,19 @@ class _CadastroCarroPageState extends State<CadastroCarroPage> {
       controller: _quilometragemController,
       inputFormatters: [FilteringTextInputFormatter.digitsOnly],
       decoration: const InputDecoration(
-          hintText: 'Informe a quilometragem',
-          labelText: 'Quilometragem:',
-          prefixIcon: Icon(Icons.time_to_leave),
-          border: OutlineInputBorder()),
+        border: UnderlineInputBorder(),
+        labelText: 'Informe a quilometragem atual',
+      ),
     );
   }
 
   SizedBox _buildBotao() {
     return SizedBox(
-      width: double.infinity,
+      width: 250,
       child: ElevatedButton(
         child: const Padding(
           padding: EdgeInsets.all(10.0),
-          child: Text('Cadastrar Carro'),
+          child: Text('Registrar carro no sistema'),
         ),
         onPressed: () async {
           final isValid = _formKey.currentState!.validate();
@@ -125,6 +133,9 @@ class _CadastroCarroPageState extends State<CadastroCarroPage> {
             final quilometragem = _quilometragemController.text;
             final chassi = int.parse(_chassiController.text);
 
+            _nomeController.clear();
+            _quilometragemController.clear();
+            _chassiController.clear();
             final carro = Carro(
                 apelido: apelido,
                 chassi: chassi,
