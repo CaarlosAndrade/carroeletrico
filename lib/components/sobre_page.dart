@@ -14,32 +14,32 @@ class _SobrePageState extends State<SobrePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-            title: const Text('Stellantis'), automaticallyImplyLeading: false),
+            title: const Text('Empresa'), automaticallyImplyLeading: false),
         body: Column(
           children: [
+            SizedBox(
+              height: 40,
+            ),
+            Center(
+              child: Image.asset('assets/images/logo.png'),
+            ),
+            SizedBox(
+              height: 40,
+            ),
+            const Text(
+              'Conheça nossa história',
+              style: TextStyle(fontSize: 20),
+            ),
+            SizedBox(
+              height: 10,
+            ),
             Stepper(
               controlsBuilder: (BuildContext context, ControlsDetails details) {
                 return Row(
-                  children: <Widget>[
-                    TextButton(
-                      onPressed: () => {},
-                      child: const Text(''),
-                    ),
-                    TextButton(
-                      onPressed: () => {},
-                      child: const Text(''),
-                    ),
-                  ],
+                  children: <Widget>[],
                 );
               },
               currentStep: _index,
-              onStepContinue: () {
-                if (_index <= 0) {
-                  setState(() {
-                    _index += 1;
-                  });
-                }
-              },
               onStepTapped: (int index) {
                 setState(() {
                   _index = index;
@@ -51,18 +51,19 @@ class _SobrePageState extends State<SobrePage> {
                   title: const Text('Fundação'),
                   content: Container(
                       alignment: Alignment.centerLeft,
-                      child: const Text('Content for Step 1')),
+                      child: const Text(
+                          'Stellantis, a “supermontadora” surgiu da união da Fiat Chrysler com a Peugeot Citroën. Apesar de não ser ainda familiar para a maioria, O grupo que surge como o quarto maior fabricante de veículos do planeta tem só alguns meses de vida. A nova organização, porém, se impôs de tal forma que as fábricas de cada uma das marcas parecem já pertencer a um novo dono. ')),
                 ),
                 Step(
                   isActive: _index == 1,
-                  title: Text('Step 2 title'),
+                  title: Text('Administração'),
                   content: Container(
                       alignment: Alignment.centerLeft,
-                      child: const Text('Content for Step 1')),
+                      child: const Text(
+                          'Dirigirão a companhia 45 executivos em posições globais ou regionais. Foram criados nove comitês para a gestão estratégica da empresa, que nasce com receita anual de 167 bilhões de euros, 400 mil funcionários e fábricas em 30 países.')),
                 ),
               ],
             ),
-            Image(image: image)
           ],
         ));
   }
