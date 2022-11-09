@@ -64,6 +64,27 @@ class _SobrePageState extends State<SobrePage> {
                 ),
               ],
             ),
+            SizedBox(
+              height: 50,
+            ),
+            Text(
+              'Time de Desenvolvedores',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Text(
+              "Carlos Andrade Rocha - RM 85384",
+              style: TextStyle(fontSize: 17),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Text(
+              "Henrique Teixeira Conti - RM 85343",
+              style: TextStyle(fontSize: 17),
+            )
           ],
         ));
   }
